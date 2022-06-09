@@ -44,25 +44,28 @@ function duplicate(arr) {
 
 function twoSum(nums, target) {
 let set = new Set()
-for (let i = 0; i < nums.length; i ++){
-  set.add(nums[i])
-}
+// for (let i = 0; i < nums.length; i ++){
+//   set.add(nums[i])
+// }
 
-for (let i = 0; i < nums.length; i ++){
+// for (let i = 0; i < nums.length; i ++){
 // let iterator = set.entries()
 //   for (let banana in iterator){
 //     if ((set[0] + nums[i] === target) && set[0] !== nums[i]){return true}
 //   }
 for (let i = 0; i<nums.length; i++){
-  if (set.has(target-nums[i]) && (nums[i] !== target-nums[i])){
+  if (set.has(target-nums[i]) /*&& (nums[i] !== target-nums[i])*/){
     return true
   }
-}
-
-
+  else {
+    set.add(nums[i])
+  }
 }
 return false
+
 }
+
+// }
 function wordPattern(pattern, strings) {
   // Your code here
 }
