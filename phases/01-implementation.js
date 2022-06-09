@@ -52,7 +52,9 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
       }
       this.count ++
     }
-
+    if (this.count >= (0.7 * this.capacity)){
+      this.resize();
+    }
 
 
 
@@ -84,7 +86,7 @@ return undefined
     this.count = 0
 
     for (let i = 0; i < copy.data.length; i ++){
-      console.log(copy.data[i])
+      // console.log(copy.data[i])
       if (!copy.data[i]){continue}
       if (copy.data[i].next === null){
         this.insert(copy.data[i].key, copy.data[i].value)
@@ -104,10 +106,42 @@ return undefined
 
 
   delete(key) {
+    let index = this.hashMod(key);
+    let currentPair = this.data[index];
+    let prev = currentPair;
+    if (!this.data[index]){
+      return "Key not found";
+    }
+    if (currentPair.next === null){
+      if (currentPair.key === key){
+        this.data[index] = null;
+        this.count--
+      }
+    }
+    else {
+      if (currentPair.key === key && currentPair.next !== null){
+        this.data[index] = currentPair.next
+        this.count--
+      }
 
+      while (currentPair){
 
+        if (currentPair.key === key){
+          prev.next = currentPair.next
+          currentPair = null;
+          this.count--
+          return;
+        }
+        prev = currentPair;
+        currentPair = currentPair.next;
 
+      }
+      // return console.log("Key not found");
+    }
+
+    return "Key not found"
   }
+
 }
 
 
